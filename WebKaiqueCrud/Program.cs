@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using WebKaiqueCrud.Context;
+using WebKaiqueCrud.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
     );
+builder.Services.AddScoped<IUserService, UsersService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
