@@ -29,5 +29,23 @@ namespace WebKaiqueCrud.Controllers
                 return BadRequest("Request inválido");
             }
         }
+
+        [HttpGet("UsersByName")]
+        public async Task<ActionResult<IAsyncEnumerable<User>>> GetUsersByName([FromQuery] string name)
+        {
+            try
+            {
+                var users = await _userService.GetUsersByName(name);
+                if (users == null) {
+                    return NotFound($"User not found with name {name}");
+                }
+                return Ok(users);
+            }
+            catch
+            {
+                return BadRequest("Request inválido");
+            }
+        }
+
     }
 }
